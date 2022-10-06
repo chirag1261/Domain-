@@ -1,0 +1,15 @@
+My First Program
+
+Procedure:
+Step 1: Open File menu→New→New project.
+Step 2: Under configuration your new project, fill in the fields. Fill the application name where
+the first letter should start with caps then other fields keep remain same as it is. Give the name for
+your application click next.
+Step 3: By default make phone and tablet selected and set the minimum SDK as API 16 and 4.1
+(Jelly Bean).
+Step 4: Select blank activity from the list of activity displayed. Click Next.
+Step 5: Click next with the default activity name i.e. Main Activity.
+Step 6: Open Content_main.xml file and look for the attribute android:text=”Hello World”.
+Step 7: Start your emulator and make it run(Virtual Device).
+Step 8: Click on the run button.
+Step 9: Open the menu option in the emulator.
