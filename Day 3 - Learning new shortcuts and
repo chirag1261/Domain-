@@ -1,0 +1,26 @@
+2.Create an Application that displays message based on the screen orientation.
+Procedure:
+Step1: Create a new project and give appropriate application name.
+Step2: Open MainActivity.java file and import the following namespace.
+MainActivity.java
+import android.widget.Toast;
+Step3: Open AndroidManifest.xml file and add an attribute under activity.
+android:configChanges="orientation|screenSize"
+Step4: Write the function in MainActivity.java say onConfigurationChange.
+@Override
+public void onConfigurationChanged(Configuration newConfig)
+{
+ super.onConfigurationChanged(newConfig);
+ if (newConfig.orientation==Configuration.ORIENTATION_LANDSCAPE)
+ {
+ Toast toast =Toast.makeText(this,"this is landscape view",Toast.LENGTH_LONG);
+ toast.show();
+ }
+ else if (newConfig.orientation==Configuration.ORIENTATION_PORTRAIT)
+ {
+ Toast toast = Toast.makeText(this, "this is portrait view", Toast.LENGTH_LONG);
+ toast.show();
+ }
+}
+Step5: Start your Emulator and Run the application.
+Step6: Use ctrl+F11 key to see the orientation changes of the screen.
