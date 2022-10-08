@@ -1,0 +1,33 @@
+ Create menu in Application.
+Procedure:
+Step1: Create a new project and give appropriate application name.
+Step2: Open Project Explorer window and open the folder say menu.
+Step3: The menu folder has a default Menu resource file say menu_main.xml.
+Step4: Open a menu_main.xml file which has a default menu built inside it. Include the <item>
+tag and its attributes after closing tools tag.
+menu_main.xml
+<item android:id="@+id/item1"
+ android:title="item1"/>
+<item android:id="@+id/item2"
+ android:title="item2"/>
+<item android:id="@+id/item3"
+ android:title="item3"/>
+Step5: Open MainActivity.java file and Import android.widget.Toast; look for the function
+onOptionsItemSelected.
+Step6: Remove all the lines in the onOptionsItemSelected function and replace the code.
+MainActivity.java
+switch (item.getItemId())
+{
+ case R.id.item1:
+ Toast.makeText(this, "item1 selected", Toast.LENGTH_LONG).show();
+ return true;
+ case R.id.item2:
+ Toast.makeText(this, "item2 selected", Toast.LENGTH_LONG).show();
+ return true;
+ case R.id.item3:
+ Toast.makeText(this, "item3 selected", Toast.LENGTH_LONG).show();
+ return true;
+ default:
+return super.onOptionsItemSelected(item);
+}
+Step7: Start your Emulator and Run the application.
