@@ -1,0 +1,68 @@
+Procedure:
+
+Step1: Create a new project and give appropriate application name.
+
+Step2: Open Project Explorer window and right click the resource folder and create a new folder 
+by the name raw.
+
+Step3: Copy any two .mp3 files into the raw folder by renaming it has A.mp3 and B.mp3.
+
+Step4: Open content_main.xml file and place two buttons in the layout.
+
+Step5: Open text tab of content_main.xml file and rename the text property of Button1 and 
+Button2 as "Audio 1" and "Audio 2".
+
+Step6: Open MainActivity.java file and import the following namespaces.
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+
+Step7: In MainActivity.java file add the keyword implements onClickListener in the public class.
+public class MainActivity extends AppCompatActivity implements OnClickListener
+
+Step8: Declare a variable in MainActivity.java file after public class.
+private MediaPlayer mp;
+
+Step9: In onCreate() function after setContentView include the following code.
+setVolumeControlStream(AudioManager.STREAM_MUSIC);
+Button button1 = (Button) findViewById(R.id.button);
+Button button2 = (Button) findViewById(R.id.button2);
+button1.setOnClickListener(this);
+button2.setOnClickListener(this);
+
+Step10: After onCreate() function include the following code.
+public void onClick(View v)
+{
+ int resId;
+ switch (v.getId()) 
+ {
+ case R.id.button:
+
+ resId=R.raw.a;
+ break;
+ case R.id.button2:
+ resId=R.raw.b;
+ break;
+ default:
+ resId=R.raw.a;
+ break;
+ }
+ if (mp!=null)
+ {
+ mp.release();
+ }
+ mp=MediaPlayer.create(this,resId);
+ mp.start();
+}
+
+Step11: After onCreateOptionMenu() function include the following code.
+protected void onDestroy() 
+{
+ if (null != mp) {
+ mp.release();
+ }
+ super.onDestroy();
+}
+
+Step12: Start your Emulator and Run the application
