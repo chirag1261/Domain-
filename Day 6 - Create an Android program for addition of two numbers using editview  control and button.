@@ -1,0 +1,44 @@
+Procedure:
+
+Step 1: Create a new Android Application and give appropriate name 
+ File→New →New Project
+ 
+Step 2: Drag and drop the following views in Content_Main.XML file
+✓ Three Text View
+✓ Two Plain Text
+✓ Button
+
+Step 3: Rename the text of the Text View controls as “Enter First Number” and “Enter Second 
+Number”
+
+Step 4: Rename the text of Button as “Calculate”
+
+Step 5: Open MainActivity.java file and import the following namespaces.
+MainActivity.java
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+Step 6: Declare the following variables in the class MainActivity.
+EditText number1;
+EditText number2;
+Button Add_button;
+TextView result;
+int ans=0;
+
+Step 7: In onCreate() function after setContentView add the code.
+number1=(EditText) findViewById(R.id.editText);
+number2=(EditText) findViewById(R.id.editText2);
+Add_button=(Button) findViewById(R.id.button);
+result=(TextView) findViewById(R.id.textView);
+Add_button.setOnClickListener(new View.OnClickListener() {
+ @Override
+ public void onClick(View v) {
+ double num1=Double.parseDouble(number1.getText().toString());
+ double num2=Double.parseDouble(number2.getText().toString());
+ double sum=num1+num2;
+ result.setText(Double.toString(sum));
+}
+});
+
+Step 8: Start your Emulator and Run the application.
