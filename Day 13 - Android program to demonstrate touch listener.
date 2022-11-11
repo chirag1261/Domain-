@@ -1,0 +1,39 @@
+Procedure:
+
+Step 1: Create a new project and give appropriate application name.
+
+Step 2: Open MainActivity.java file and import the following namespaces.
+MainActivity.java
+import android.view.View;
+import android.view.MotionEvent;
+import android.widget.Toast;
+import android.widget.TextView;
+
+Step 3: In MainActivity.java file add the keyword implements view.onTouchListener in the 
+public class.
+public class MainActivity extends AppCompatActivity implements View.OnTouchListener
+
+Step 4: Declare the variables under public class.
+int no1=15;
+int no2=10;
+int s;
+
+Step 5: In onCreate function after setContentView add the following code.
+TextView tv=(TextView) findViewById(R.id.textView);
+tv.setOnTouchListener(this);
+
+Step 6: After onCreate function add the codes.
+public boolean onTouch(View v, MotionEvent event) {
+ Toast.makeText(getBaseContext(),"Touch Event On View",Toast.LENGTH_LONG).show();
+ return false;
+}
+@Override
+public boolean onTouchEvent(MotionEvent e){
+ final float x=e.getX();
+ final float y=e.getY();
+ Toast.makeText(getBaseContext(),"Coordinates X:"+x+" Y: 
+"+y,Toast.LENGTH_LONG).show();
+ return true;
+}
+
+Step 7: Start your Emulator and Run the application.
