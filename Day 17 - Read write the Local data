@@ -1,0 +1,85 @@
+Procedure:
+
+Step1: Create a new project and give appropriate application name.
+
+Step2: Open content_main.xml file text tab and add the line in <RelativeLayout> tag as last 
+attribute.
+content_main.xml or activity_main.xml
+tools:context="{RelativePackage}.${activityClass}"
+
+Step3: Open content_main.xml file design tab and place a TextView control, EditText control and 
+two Button controls.
+
+Step4: Change the TextView control properties of 
+text="Android Read and Write text from file"
+textColor="#fff"
+
+Step5: drag and drop EditText control in content_main.xml file .
+
+Step6: Change the button1 property as:
+android:layout_below="@+id/button"
+android:text="Write Text into file"
+android:onClick="WriteBtn"
+
+Step7: Change the button2 property as:
+android:layout_below="@+id/button1"
+android:text="Read text from file"
+android:onClick="ReadBtn"
+
+Step8: Open MainActivity.java file and import the following namespaces.
+MainActivity.java
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import android.widget.EditText;
+import android.widget.Toast;
+
+Step9: Declare the variables in MainActivity.java file after the public class
+EditText textmsg;
+static final int READ_BLOCK_SIZE=100;
+
+Step10: In onCreate() function after setContentView include the following line.
+textmsg=(EditText)findViewById(R.id.editText1);
+
+Step11: Delete all other functions.
+
+Step12: After onCreate() function include the following code.
+ 
+public void WriteBtn(View v)
+{
+ try {
+ FileOutputStream fileout=openFileOutput("mytextfile.txt",MODE_PRIVATE);
+ OutputStreamWriter outputWriter=new OutputStreamWriter(fileout);
+ outputWriter.write(textmsg.getText().toString());
+ outputWriter.close();
+ Toast.makeText(getBaseContext(),"File Saved 
+Successfully!",Toast.LENGTH_SHORT).show();
+ }catch (Exception e)
+ {
+ e.printStackTrace();
+ }
+ }
+ public void ReadBtn(View v)
+ {
+ try{
+ FileInputStream filein=openFileInput("mytextfile.txt");
+ InputStreamReader inputRead=new InputStreamReader(filein);
+ char[] inputBuffer=new char[READ_BLOCK_SIZE];
+ String s="";
+ int charRead;
+ 
+ while ((charRead=inputRead.read(inputBuffer))>0)
+ {
+ String readstring=String.copyValueOf(inputBuffer,0,charRead);
+ s+=readstring;
+ inputRead.close();
+ Toast.makeText(getBaseContext(),s,Toast.LENGTH_SHORT).show();
+ }
+ }catch (Exception e)
+ {
+ e.printStackTrace();
+ }
+ }
+}
+Step13: Start your Emulator and Run the application.
