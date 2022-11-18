@@ -1,0 +1,71 @@
+Procedure:
+
+Step 1: Create a new Android Application and give appropriate name 
+ File→New →New Project
+ 
+Step 2: Prepare your image which you want to show in grid layout and place them in 
+res→drawable folder
+
+Step 3: Drag and drop the following views in Content_Main.XML file
+✓ Text View
+✓ Grid View
+
+Step 4: Create a new class by the name “imageAdapter.java”
+(Right Click)app→java folder(Right Click)→new→class file and name it 
+as “imageAdapter.java”
+
+Step 5: Extend your ImageAdapter.java class from BaseAdapter and fill with following code
+Import the following namespaces:
+import android.content.Context;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.GridView;
+import android.widget.ImageView;
+Type the following code inside class file:
+public class ImageAdapter extends BaseAdapter {
+ private Context mContext;
+ public Integer[] 
+mThumbIds={R.drawable.i2,R.drawable.i3,R.drawable.one,R.drawable.i45,R.drawable.i6,R.dra
+wable.i7,R.drawable.one,R.drawable.i7,R.drawable.i6,R.drawable.one,R.drawable.i6,R.drawable
+.i45};
+ public ImageAdapter(Context c){
+ mContext=c;
+ }
+ @Override
+ public int getCount(){
+ return mThumbIds.length;
+ }
+@Override
+ public Object getItem(int position){
+ return mThumbIds[position];
+ }
+ @Override
+ public long getItemId(int position){
+ return 0;
+ }
+ @Override
+ public View getView(int position,View convertView,ViewGroup parent){
+ ImageView imageView;
+ if (convertView==null){
+ imageView=new ImageView(mContext);
+ imageView.setLayoutParams(new GridView.LayoutParams(85,85));
+ imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+ imageView.setPadding(8,8,8,8);
+ }
+ else {
+ imageView=(ImageView)convertView;
+ }
+ imageView.setImageResource(mThumbIds[position]);
+ return imageView;
+ }
+}
+
+Step 6: In MainActivity.java add the following code
+Import the following namespaces:
+import android.widget.GridView;
+After setContentView inside onCreate function add the following code:
+GridView gridView=(GridView)findViewById(R.id.gridView);
+gridView.setAdapter(new ImageAdapter(this));
+
+Step7: Start your Emulator and Run the application.
