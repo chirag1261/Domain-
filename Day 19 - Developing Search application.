@@ -1,0 +1,60 @@
+Procedure:
+Step1: Create a new project and give appropriate application name.
+
+Step2: Create required files needed to generate a ListView and EditText. 
+Open content_main.xml file or activity_main.xml file and drag and drop ListView control and 
+PlainText control. Change the attributes values of EditText has given in the following code.
+activity_main.xml
+<EditText
+ android:layout_width="wrap_content"
+ android:layout_height="wrap_content"
+ android:id="@+id/inputSearch"
+ android:ems="10"
+ android:hint="Search Products"
+ android:inputType="textVisiblePassword"
+ android:layout_marginLeft="5dp"
+ android:layout_marginRight="5dp"
+ android:layout_alignParentTop="true"
+ android:layout_toEndOf="@+id/textView" />
+ 
+Step3: Change the value of ListView id attribute as "list_view".
+
+Step4: Create a xml file in res/layout folder and name it as list_item.xml.
+Drag and drop a TextView control and change the id as "product_name".
+
+Step5: Open MainActivity.java file and import the following namespaces.
+MainActivity.java
+import android.text.Editable;
+import android.widget.ArrayAdapter;
+import android.text.TextWatcher;
+import android.widget.EditText;
+import android.widget.ListView;
+
+Step6: Declare the variables in MainActivity.java before the onCreate function
+MainActivity.java
+private ListView lv;
+ArrayAdapter <String> adapter;
+EditText inputSearch;
+ArrayList <HashMap<String,String>> productList;
+
+Step7: After setContentView in onCreate function include the following code.
+MainActivity.java
+String products[]={"Bangalore","Mangalore","Karnataka","Chennai","Kerala"};
+lv=(ListView)findViewById(R.id.list_view);
+inputSearch=(EditText)findViewById(R.id.inputSearch);
+adapter=new ArrayAdapter<String>(this,R.layout.list_item,R.id.product_name,products);
+lv.setAdapter(adapter);
+}
+inputSearch.addTextChangedListener(new TextWatcher() {
+@Override
+public void onTextChanged(CharSequence cs, int i, int i1, int i2) 
+{
+ MainActivity.this.adapter.getFilter().filter(cs);
+}
+
+Step8: Open AndroidManifest.xml file to hide the keyboard on loading activity.
+Place the code in <activity> before <intent-filter> opening tag starts.
+AndroidManifest,xml
+android:windowSoftInputMode="stateHidden"
+
+Step9: Start your Emulator and Run the application.
