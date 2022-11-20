@@ -1,0 +1,84 @@
+Procedure:
+
+Step 1: Create a new project and give appropriate application name.
+
+Step 2: Open MainActivity.java file and import the following namespaces.
+MainActivity.java
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
+import android.widget.Toast;
+
+Step 3: After onCreate() function write the function for fade in and blink animation.
+public void fade(View view){
+ ImageView image=(ImageView)findViewById(R.id.imageView);
+ Animation animation1=AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fade);
+ image.startAnimation(animation1);
+}
+public void blink(View view){
+ ImageView image=(ImageView)findViewById(R.id.imageView);
+ Animation 
+animation1=AnimationUtils.loadAnimation(getApplicationContext(),R.anim.blink);
+ image.startAnimation(animation1);
+}
+
+Step 4: Drag and drop two Buttons and the Image View control in activity_main.xml and paste a 
+pic in drawable folder.
+
+Step 5: Change the Button text property as “Fade” for button1 and “Blink” for button2. For the 
+Image View control give the source of the image.
+
+Step 6: Create an ‘anim’ folder, and inside ‘anim’ folder create xml file by the name 
+‘myanimation.xml’.
+
+Step 7: In myanimation.xml add the following code.
+<set>
+ <scale
+ android:fromXScale="0.5"
+android:fromYScale="0.5"
+ android:toXScale="3.0"
+ android:toYScale="3.0"
+ android:duration="5000"
+ android:pivotX="50%"
+ android:pivotY="50%">
+ </scale>
+ <scale
+ android:startOffset="5000"
+ android:fromXScale="0.5"
+ android:fromYScale="0.5"
+ android:toXScale="3.0"
+ android:toYScale="3.0"
+ android:duration="5000"
+ android:pivotX="50%"
+ android:pivotY="50%">
+ </scale>
+</set>
+
+Step 8: Create a file under anim folder as ‘fade.xml’.
+<set>
+ <alpha
+ android:fromAlpha="0"
+ android:toAlpha="1"
+ android:duration="2000">
+ </alpha>
+ <alpha
+ android:startOffset="2000"
+ android:fromAlpha="1"
+ android:toAlpha="0"
+ android:duration="2000">
+ </alpha>
+</set>
+
+Step 9: Create a file under anim folder as ‘blink.xml’.
+<set>
+<alpha
+ android:fromAlpha="0.0"
+ android:toAlpha="1.0"
+ android:interpolator="@android:anim/accelerate_interpolator"
+ android:duration="600"
+android:repeatMode="reverse"
+ android:repeatCount="infinite"/>
+</set>
+
+Step 10: Start your Emulator and Run the application
