@@ -1,0 +1,216 @@
+A notification is a message you can display to the user outside of your application's normal UI. When you tell the system to issue a notification, it first appears as an icon
+in the notification area. To see the details of the notification, the user opens the notification drawer. Both the notification area and the notification drawer are 
+system-controlled areas that the user can view at any time.
+
+Android Toast class provides a handy way to show users alerts but problem is that these alerts are not persistent which means alert flashes on the screen for a few seconds 
+and then disappears.
+Android Notification Bar
+
+To see the details of the notification, you will have to select the icon which will display notification drawer having detail about the notification. While working with 
+emulator with virtual device, you will have to click and drag down the status bar to expand it which will give you detail as follows. This will be just 64 dp tall and called 
+normal view.
+Android Notification Detail
+
+Above expanded form can have a Big View which will have additional detail about the notification. You can add upto six additional lines in the notification. The following 
+screen shot shows such notification.
+Create and Send Notifications
+
+You have simple way to create a notification. Follow the following steps in your application to create a notification −
+Step 1 - Create Notification Builder
+
+As a first step is to create a notification builder using NotificationCompat.Builder.build(). You will use Notification Builder to set various Notification properties like 
+its small and large icons, title, priority etc.
+
+NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this)
+
+Step 2 - Setting Notification Properties
+
+Once you have Builder object, you can set its Notification properties using Builder object as per your requirement. But this is mandatory to set at least following −
+
+    A small icon, set by setSmallIcon()
+
+    A title, set by setContentTitle()
+
+    Detail text, set by setContentText()
+
+mBuilder.setSmallIcon(R.drawable.notification_icon);
+mBuilder.setContentTitle("Notification Alert, Click Me!");
+mBuilder.setContentText("Hi, This is Android Notification Detail!");
+
+You have plenty of optional properties which you can set for your notification. To learn more about them, see the reference documentation for NotificationCompat.Builder.
+Step 3 - Attach Actions
+
+This is an optional part and required if you want to attach an action with the notification. An action allows users to go directly from the notification to an Activity in
+your application, where they can look at one or more events or do further work.
+The action is defined by a PendingIntent containing an Intent that starts an Activity in your application. To associate the PendingIntent with a gesture, call the appropriate
+method of NotificationCompat.Builder. For example, if you want to start Activity when the user clicks the notification text in the notification drawer, you add the 
+PendingIntent by calling setContentIntent().
+
+A PendingIntent object helps you to perform an action on your applications behalf, often at a later time, without caring of whether or not your application is running.
+
+We take help of stack builder object which will contain an artificial back stack for the started Activity. This ensures that navigating backward from the Activity leads out
+of your application to the Home screen.
+
+Intent resultIntent = new Intent(this, ResultActivity.class);
+TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+stackBuilder.addParentStack(ResultActivity.class);
+
+// Adds the Intent that starts the Activity to the top of the stack
+stackBuilder.addNextIntent(resultIntent);
+PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0,PendingIntent.FLAG_UPDATE_CURRENT);
+mBuilder.setContentIntent(resultPendingIntent);
+
+Step 4 - Issue the notification
+
+Finally, you pass the Notification object to the system by calling NotificationManager.notify() to send your notification. Make sure you call NotificationCompat.Builder.
+build() method on builder object before notifying it. This method combines all of the options that have been set and return a new Notification object.
+
+NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+    
+// notificationID allows you to update the notification later on.
+mNotificationManager.notify(notificationID, mBuilder.build());
+
+The NotificationCompat.Builder Class
+
+The NotificationCompat.Builder class allows easier control over all the flags, as well as help constructing the typical notification layouts. Following are few important and
+most frequently used methods available as a part of NotificationCompat.Builder class.
+
+Sr.No. 	Constants & Description
+1 	
+Notification build()
+
+Combine all of the options that have been set and return a new Notification object.
+2 	
+NotificationCompat.Builder setAutoCancel (boolean autoCancel)
+
+Setting this flag will make it so the notification is automatically canceled when the user clicks it in the panel.
+3 	
+
+NotificationCompat.Builder setContent (RemoteViews views)
+
+Supply a custom RemoteViews to use instead of the standard one.
+4 	
+
+NotificationCompat.Builder setContentInfo (CharSequence info)
+
+Set the large text at the right-hand side of the notification.
+5 	
+
+NotificationCompat.Builder setContentIntent (PendingIntent intent)
+
+Supply a PendingIntent to send when the notification is clicked.
+6 	
+
+NotificationCompat.Builder setContentText (CharSequence text)
+
+Set the text (second row) of the notification, in a standard notification.
+7 	
+
+NotificationCompat.Builder setContentTitle (CharSequence title)
+
+Set the text (first row) of the notification, in a standard notification.
+8 	
+
+NotificationCompat.Builder setDefaults (int defaults)
+
+Set the default notification options that will be used.
+9 	
+
+NotificationCompat.Builder setLargeIcon (Bitmap icon)
+
+Set the large icon that is shown in the ticker and notification.
+10 	
+
+NotificationCompat.Builder setNumber (int number)
+
+Set the large number at the right-hand side of the notification.
+11 	
+
+NotificationCompat.Builder setOngoing (boolean ongoing)
+
+Set whether this is an ongoing notification.
+12 	
+
+NotificationCompat.Builder setSmallIcon (int icon)
+
+Set the small icon to use in the notification layouts.
+13 	
+
+NotificationCompat.Builder setStyle (NotificationCompat.Style style)
+
+Add a rich notification style to be applied at build time.
+14 	
+
+NotificationCompat.Builder setTicker (CharSequence tickerText)
+
+Set the text that is displayed in the status bar when the notification first arrives.
+15 	
+
+NotificationCompat.Builder setVibrate (long[] pattern)
+
+Set the vibration pattern to use.
+16 	
+
+NotificationCompat.Builder setWhen (long when)
+
+Set the time that the event occurred. Notifications in the panel are sorted by this time.
+Example
+
+Following example shows the functionality of a Android notification using a NotificationCompat.Builder Class which has been introduced in Android 4.1.
+Step 	Description
+1 	You will use Android studio IDE to create an Android application and name it as tutorialspoint under a package com.example.notificationdemo.
+2 	Modify src/MainActivity.java file and add the code to notify(""), if user click on the button,it will call android notification service.
+3 	Create a new Java file src/NotificationView.java, which will be used to display new layout as a part of new activity which will be started when user will click any of the
+notifications
+4 	Modify layout XML file res/layout/activity_main.xml to add Notification button in relative layout.
+5 	Create a new layout XML file res/layout/notification.xml. This will be used as layout file for new activity which will start when user will click any of the notifications.
+6 	No need to change default string constants. Android studio takes care of default string constants
+7 	Run the application to launch Android emulator and verify the result of the changes done in the application.
+
+Following is the content of the modified main activity file src/com.example.notificationdemo/MainActivity.java. This file can include each of the fundamental lifecycle methods.
+
+package com.example.notificationdemo;
+
+import android.app.Activity;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.support.v4.app.NotificationCompat;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+
+public class MainActivity extends Activity {
+   Button b1;
+   @Override
+   protected void onCreate(Bundle savedInstanceState) {
+      super.onCreate(savedInstanceState);
+      setContentView(R.layout.activity_main);
+
+      b1 = (Button)findViewById(R.id.button);
+      b1.setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View v) {
+            addNotification();
+         }
+      });
+   }
+
+   private void addNotification() {
+      NotificationCompat.Builder builder =
+         new NotificationCompat.Builder(this)
+         .setSmallIcon(R.drawable.abc)
+         .setContentTitle("Notifications Example")
+         .setContentText("This is a test notification");
+
+      Intent notificationIntent = new Intent(this, MainActivity.class);
+      PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent,
+         PendingIntent.FLAG_UPDATE_CURRENT);
+      builder.setContentIntent(contentIntent);
+
+      // Add as notification
+      NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+      manager.notify(0, builder.build());
+   }
+}
