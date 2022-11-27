@@ -1,0 +1,143 @@
+In Android, you can use SmsManager API or devices Built-in SMS application to send SMS's. In this tutorial, we shows you two basic examples to send SMS message −
+
+SmsManager API
+
+SmsManager smsManager = SmsManager.getDefault();
+smsManager.sendTextMessage("phoneNo", null, "sms message", null, null);
+
+Built-in SMS application
+
+Intent sendIntent = new Intent(Intent.ACTION_VIEW);
+sendIntent.putExtra("sms_body", "default content"); 
+sendIntent.setType("vnd.android-dir/mms-sms");
+startActivity(sendIntent);
+
+Of course, both need SEND_SMS permission.
+
+<uses-permission android:name="android.permission.SEND_SMS" />
+
+Apart from the above method, there are few other important functions available in SmsManager class. These methods are listed below −
+Sr.No. 	Method & Description
+1 	
+
+ArrayList<String> divideMessage(String text)
+
+This method divides a message text into several fragments, none bigger than the maximum SMS message size.
+2 	
+
+static SmsManager getDefault()
+
+This method is used to get the default instance of the SmsManager
+3 	
+
+void sendDataMessage(String destinationAddress, String scAddress, short destinationPort, byte[] data, PendingIntent sentIntent, PendingIntent deliveryIntent)
+
+This method is used to send a data based SMS to a specific application port.
+4 	
+
+void sendMultipartTextMessage(String destinationAddress, String scAddress, ArrayList<String> parts, ArrayList<PendingIntent> sentIntents, ArrayList<PendingIntent> 
+deliveryIntents)
+
+Send a multi-part text based SMS.
+5 	
+
+void sendTextMessage(String destinationAddress, String scAddress, String text, PendingIntent sentIntent, PendingIntent deliveryIntent)
+
+Send a text based SMS.
+Example
+
+Following example shows you in practical how to use SmsManager object to send an SMS to the given mobile number.
+
+    To experiment with this example, you will need actual Mobile device equipped with latest Android OS, otherwise you will have to struggle with emulator which may not work.
+
+Step 	Description
+1 	You will use Android Studio IDE to create an Android application and name it as tutorialspoint under a package com.example.tutorialspoint.
+2 	Modify src/MainActivity.java file and add required code to take care of sending sms.
+3 	Modify layout XML file res/layout/activity_main.xml add any GUI component if required. I'm adding a simple GUI to take mobile number and SMS text to be sent and a simple
+button to send SMS.
+4 	No need to define default string constants at res/values/strings.xml. Android studio takes care of default constants.
+5 	Modify AndroidManifest.xml as shown below
+6 	Run the application to launch Android emulator and verify the result of the changes done in the application.
+
+Following is the content of the modified main activity file src/com.example.tutorialspoint/MainActivity.java.
+
+package com.example.tutorialspoint;
+
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.os.Bundle;
+import android.app.Activity;
+
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.telephony.SmsManager;
+
+import android.util.Log;
+import android.view.Menu;
+import android.view.View;
+
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+public class MainActivity extends Activity {
+   private static final int MY_PERMISSIONS_REQUEST_SEND_SMS =0 ;
+   Button sendBtn;
+   EditText txtphoneNo;
+   EditText txtMessage;
+   String phoneNo;
+   String message;
+
+   @Override
+   protected void onCreate(Bundle savedInstanceState) {
+      super.onCreate(savedInstanceState);
+      setContentView(R.layout.activity_main);
+
+      sendBtn = (Button) findViewById(R.id.btnSendSMS);
+      txtphoneNo = (EditText) findViewById(R.id.editText);
+      txtMessage = (EditText) findViewById(R.id.editText2);
+
+      sendBtn.setOnClickListener(new View.OnClickListener() {
+         public void onClick(View view) {
+            sendSMSMessage();
+         }
+      });
+   }
+	
+   protected void sendSMSMessage() {
+      phoneNo = txtphoneNo.getText().toString();
+      message = txtMessage.getText().toString();
+		
+      if (ContextCompat.checkSelfPermission(this,
+         Manifest.permission.SEND_SMS)
+         != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+               Manifest.permission.SEND_SMS)) {
+            } else {
+               ActivityCompat.requestPermissions(this,
+                  new String[]{Manifest.permission.SEND_SMS},
+                  MY_PERMISSIONS_REQUEST_SEND_SMS);
+            }
+      }
+   }
+	
+   @Override
+   public void onRequestPermissionsResult(int requestCode,String permissions[], int[] grantResults) {
+      switch (requestCode) {
+         case MY_PERMISSIONS_REQUEST_SEND_SMS: {
+            if (grantResults.length > 0
+               && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                  SmsManager smsManager = SmsManager.getDefault();
+                  smsManager.sendTextMessage(phoneNo, null, message, null, null);
+                  Toast.makeText(getApplicationContext(), "SMS sent.", 
+                     Toast.LENGTH_LONG).show();
+            } else {
+               Toast.makeText(getApplicationContext(), 
+                  "SMS faild, please try again.", Toast.LENGTH_LONG).show();
+               return;
+            }
+         }
+      }
+
+   }
+}
