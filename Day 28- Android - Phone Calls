@@ -1,0 +1,124 @@
+Android provides Built-in applications for phone calls, in some occasions we may need to make a phone call through our application. This could easily be done by using 
+implicit Intent with appropriate actions. Also, we can use PhoneStateListener and TelephonyManager classes, in order to monitor the changes in some telephony states on the
+device.
+
+This chapter lists down all the simple steps to create an application which can be used to make a Phone Call. You can use Android Intent to make phone call by calling
+built-in Phone Call functionality of the Android. Following section explains different parts of our Intent object required to make a call.
+Intent Object - Action to make Phone Call
+
+You will use ACTION_CALL action to trigger built-in phone call functionality available in Android device. Following is simple syntax to create an intent with ACTION_CALL 
+action
+
+Intent phoneIntent = new Intent(Intent.ACTION_CALL);
+
+You can use ACTION_DIAL action instead of ACTION_CALL, in that case you will have option to modify hardcoded phone number before making a call instead of making a direct call.
+Intent Object - Data/Type to make Phone Call
+
+To make a phone call at a given number 91-000-000-0000, you need to specify tel: as URI using setData() method as follows −
+
+phoneIntent.setData(Uri.parse("tel:91-000-000-0000"));
+
+The interesting point is that, to make a phone call, you do not need to specify any extra data or data type.
+Example
+
+Following example shows you in practical how to use Android Intent to make phone call to the given mobile number.
+
+    To experiment with this example, you will need actual Mobile device equipped with latest Android OS, otherwise you will have to struggle with emulator which may not work.
+
+Step 	Description
+1 	You will use Android studio IDE to create an Android application and name it as My Application under a package com.example.saira_000.myapplication.
+2 	Modify src/MainActivity.java file and add required code to take care of making a call.
+3 	Modify layout XML file res/layout/activity_main.xml add any GUI component if required. I'm adding a simple button to Call 91-000-000-0000 number
+4 	No need to define default string constants.Android studio takes care of default constants.
+5 	Modify AndroidManifest.xml as shown below
+6 	Run the application to launch Android emulator and verify the result of the changes done in the application.
+
+Following is the content of the modified main activity file src/MainActivity.java.
+
+package com.example.saira_000.myapplication;
+
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
+
+public class MainActivity extends AppCompatActivity {
+   private Button button;
+
+   @Override
+   protected void onCreate(Bundle savedInstanceState) {
+      super.onCreate(savedInstanceState);
+      setContentView(R.layout.activity_main);
+      button = (Button) findViewById(R.id.buttonCall);
+		
+      button.setOnClickListener(new View.OnClickListener() {
+         public void onClick(View arg0) {
+            Intent callIntent = new Intent(Intent.ACTION_CALL);
+            callIntent.setData(Uri.parse("tel:0377778888"));
+				
+            if (ActivityCompat.checkSelfPermission(MainActivity.this,
+               Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                  return;
+               }
+               startActivity(callIntent);
+         }
+      });
+
+   }
+}
+
+Following will be the content of res/layout/activity_main.xml file −
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+   android:layout_width="fill_parent"
+   android:layout_height="fill_parent"
+   android:orientation="vertical" >
+
+   <Button
+      android:id="@+id/buttonCall"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="call 0377778888" />
+
+</LinearLayout>
+
+Following will be the content of res/values/strings.xml to define two new constants −
+
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+   <string name="app_name">My Application</string>
+</resources>
+
+Following is the default content of AndroidManifest.xml −
+
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+   package="com.example.saira_000.myapplication" >
+   
+   <uses-permission android:name="android.permission.CALL_PHONE" />
+   
+   <application
+      android:allowBackup="true"
+      android:icon="@drawable/ic_launcher"
+      android:label="@string/app_name"
+      android:theme="@style/AppTheme" >
+      
+      <activity
+         android:name="com.example.saira_000.myapplication.MainActivity"
+         android:label="@string/app_name" >
+      
+         <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+         </intent-filter>
+      
+      </activity>
+      
+   </application>
+</manifest>
