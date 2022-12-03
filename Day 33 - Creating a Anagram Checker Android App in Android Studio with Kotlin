@@ -1,0 +1,121 @@
+An anagram of a word is another word that contains the same characters, only the order of characters can be different. For example, “abcd” and “dabc” are an anagram of each 
+other. In this article, we will be building an Anagram Checker android app in Android Studio using Kotlin and XML. The app will check whether the entered words are anagrams 
+of each other. If the entered words are an anagram of each other then a Toast will be displayed having the message “Entered words are Anagram” otherwise Toast’s message will 
+be “Entered words are not Anagram”. 
+
+Step by Step Implementation
+
+Step 1: Create a New Project  
+
+To create a new project in Android Studio please refer to How to Create/Start a New Project in Android Studio. Note that select Kotlin as the programming language.
+
+Step 2: Working with the build.gradle(Module) File
+
+You need to apply the plugin kotlin-android-extensions in the build.gradle module like this
+
+plugins {
+
+   id 'com.android.application'
+   id 'kotlin-android'
+   id 'kotlin-android-extensions'
+
+}
+
+Step 3: Working with the activity_main.xml file
+
+Navigate to the app > res > layout > activity_main.xml and add the below code to that file. Below is the code for the activity_main.xml file. 
+
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+  
+    <TextView
+        android:textColor="#2E7D32"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="40dp"
+        android:text="Anagram Checker"
+        android:textSize="35sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+  
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:orientation="horizontal">
+        
+        <TextView
+            android:paddingLeft="10dp"
+            android:textColor="#2E7D32"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="120dp"
+            android:text="Word 1"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+  
+        <EditText
+            android:hint="Enter first word"
+            android:layout_weight="2"
+            android:id="@+id/et_text1"
+            android:layout_width="190dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="50dp" />
+  
+  
+    </androidx.appcompat.widget.LinearLayoutCompat>
+  
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        
+        <TextView
+            android:paddingLeft="10dp"
+            android:textColor="#2E7D32"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="120dp"
+            android:text="Word 2"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+  
+        <EditText
+            android:layout_weight="2"
+            android:id="@+id/et_text2"
+            android:layout_width="190dp"
+            android:hint="Enter second word"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="50dp" />
+  
+  
+    </androidx.appcompat.widget.LinearLayoutCompat>
+  
+    <Button
+        android:id="@+id/check_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        android:backgroundTint="#E67212"
+        android:text="Check"
+        android:textColor="@color/white" />
+  
+</androidx.appcompat.widget.LinearLayoutCompat>
