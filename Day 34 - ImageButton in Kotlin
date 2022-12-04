@@ -1,0 +1,120 @@
+Android ImageButton is a user interface widget which is used to display a button having image and to perform exactly like button when we click on it but here, we add an image
+on Image button instead of text. There are different types of buttons available in android like ImageButton, ToggleButton etc.
+
+We can add an image to the button simply by using attribute android:src in activity_main.xml file or by using setImageResource() method.
+
+In android, we can create ImageButton control in two ways either manually or programmatically.
+
+First we create a new project by following the below steps:
+
+    Click on File, then New => New Project.
+    After that include the Kotlin support and click on next.
+    Select the minimum SDK as per convenience and click next button.
+    Then select the Empty activity => next => finish.
+    
+    <?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/linear_layout">
+  
+    <EditText
+        android:id="@+id/Num1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:ems="10"
+        android:hint= "Enter first number"/>
+  
+    <EditText
+        android:id="@+id/Num2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:ems="10"
+        android:hint= "Enter second number"/>
+  
+    <ImageButton
+        android:id="@+id/imageBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="100dp"
+        android:src="@android:drawable/btn_plus" />
+</LinearLayout>
+
+Modify the strings.xml file to add application name
+
+<resources>
+    <string name="app_name">ImageButtonInKotlin</string>
+</resources>
+Access ImageButton and EditText in MainActivity.kt file
+
+First of all, we declare two variables num1 and num2 for both edittext and access them using the ids.
+
+val num1 = findViewById(R.id.Num1)
+val num2 = findViewById(R.id.Num2)
+
+then, we declare variable imgbtn for the ImageButton and set the OnCLickListener to check the filled is empty or not
+
+val imgbtn = findViewById(R.id.imageBtn)
+    imgbtn.setOnClickListener {
+     if (num1.text.toString().isEmpty() || num2.text.toString().isEmpty()) {
+          Toast.makeText(applicationContext,
+           "Enter both numbers", Toast.LENGTH_SHORT).show()
+    }
+
+package com.geeksforgeeks.myfirstkotlinapp
+  
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import android.widget.EditText
+import android.widget.ImageButton
+import android.widget.Toast
+  
+  
+class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+        val num1 = findViewById<EditText>(R.id.Num1)
+        val num2 = findViewById<EditText>(R.id.Num2)
+        val imgbtn = findViewById<ImageButton>(R.id.imageBtn)
+        imgbtn.setOnClickListener {
+         if (num1.text.toString().isEmpty() || num2.text.toString().isEmpty()) {
+              Toast.makeText(applicationContext,
+                  "Enter both numbers", Toast.LENGTH_SHORT).show()
+            }
+            else {
+                val num1 = Integer.parseInt(num1.text.toString())
+                val num2 = Integer.parseInt(num2.text.toString())
+                Toast.makeText(applicationContext,
+                    "Sum of the numbers = " + (num1 + num2),
+                    Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+}
+AndroidManifest.xml file
+
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+package="com.geeksforgeeks.myfirstkotlinapp">
+  
+<application
+    android:allowBackup="true"
+    android:icon="@mipmap/ic_launcher"
+    android:label="@string/app_name"
+    android:roundIcon="@mipmap/ic_launcher_round"
+    android:supportsRtl="true"
+    android:theme="@style/AppTheme">
+    <activity android:name=".MainActivity">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+  
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+    </activity>
+</application>
+  
+</manifest>
