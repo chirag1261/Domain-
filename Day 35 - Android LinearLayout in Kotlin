@@ -1,0 +1,85 @@
+Android LinearLayout is a ViewGroup subclass, used to provide child View elements one by one either in a particular direction either horizontally or vertically based on the 
+orientation property. We can specify the linear layout orientation using android:orientation attribute.
+
+All the child elements arranged one by one in multiple rows and multiple columns.
+
+    Horizontal list: One row, multiple columns.
+    Vertical list: One column, multiple rows.
+
+In this article, we are going to discuss declaration and implementation of LinearLayout.
+How to declare LinearLayout in XML file?
+
+First of all, we should declare the LinearLayout in layout file using the below code.
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http:// schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+     
+    // Add another child elements here like
+    // EditText, button etc
+  
+</LinearLayout>
+LinearLayout in activity_main.xml file
+
+Following is the code for LinearLayout in xml file.
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http:// schemas.android.com/apk/res/android"
+    xmlns:tools="http:// schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+  
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="Enter your name here:"
+        android:textSize="24dp"
+        android:id="@+id/txtVw"/>
+  
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:hint="Name"
+        android:inputType="text"/>
+  
+    <Button
+        android:id="@+id/showInput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="show"
+        android:backgroundTint="@color/colorPrimary"
+        android:textColor="@android:color/white"/>
+  
+</LinearLayout>
+MainActivity.kt file
+
+When we have created layout, we need to load the XML layout resource from our activity onCreate() callback method and access the UI element form the XML using findViewById.
+
+package com.geeksforgeeks.myfirstkotlinapp
+  
+    import androidx.appcompat.app.AppCompatActivity import android.os.Bundle import android.widget.Button import android.widget.EditText import android.widget.TextView
+  
+    class MainActivity : AppCompatActivity() {
+  
+    override fun onCreate(savedInstanceState: Bundle?)
+    {
+        super.onCreate(savedInstanceState)
+            setContentView(R.layout.activity_main)
+            // finding the UI elements
+            val showButton
+            = findViewById<Button>(R.id.showInput)
+                val editText
+            = findViewById<EditText>(R.id.editText)
+                val textView
+            = findViewById<TextView>(R.id.txtVw)
+    }
+}
