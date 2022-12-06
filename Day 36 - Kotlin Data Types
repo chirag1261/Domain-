@@ -1,0 +1,160 @@
+The most fundamental data type in Kotlin is the Primitive data type and all others are reference types like array and string. Java needs to use wrappers (java.lang.Integer) 
+for primitive data types to behave like objects but Kotlin already has all data types as objects.
+
+There are different data types in Kotlin:
+
+    Integer Data type
+    Floating-point Data Type
+    Boolean Data Type
+    Character Data Type
+
+Integer Data Type
+
+These data types contain integer values.
+byte	8 bits	-128	127
+short	16 bits	-32768	32767
+int	32 bits	-2147483648	2147483647
+long	64 bits	-9223372036854775808 	9223372036854775807
+
+// Kotlin code
+fun main(args : Array<String>) {
+    var myint = 35
+   
+    // add suffix L for long integer
+    var mylong = 23L
+     
+    println("My integer ${myint}")
+    println("My long integer ${mylong}")
+ 
+    var b1: Byte = Byte.MIN_VALUE
+    var b2: Byte = Byte.MAX_VALUE
+    println("Smallest byte value: " +b1)
+    println("Largest byte value: " +b2)
+ 
+    var S1: Short = Short.MIN_VALUE
+    var S2: Short = Short.MAX_VALUE
+    println("Smallest short value: " +S1)
+    println("Largest short value: " +S2)
+ 
+    var I1: Int = Int.MIN_VALUE
+    var I2: Int = Int.MAX_VALUE
+    println("Smallest integer value: " +I1)
+    println("Largest integer value: " +I2)
+ 
+    var L1: Long = Long.MIN_VALUE
+    var L2: Long = Long.MAX_VALUE
+    println("Smallest long integer value: " +L1)
+    println("Largest long integer value: " +L2)
+}
+
+Output:
+
+My integer 35
+My long integer 23
+Smallest byte value: -128
+Largest byte value: 127
+Smallest short value: -32768
+Largest short value: 32767
+Smallest integer value: -2147483648
+Largest integer value: 2147483647
+Smallest long integer value: -9223372036854775808
+Largest long integer value: 9223372036854775807
+
+Floating-Point Data Type
+
+These data type used to store decimal value or fractional part.
+
+Data Type
+	
+
+Bits
+	
+
+Min Value
+	
+
+Max Value
+float	32 bits	1.40129846432481707e-45	3.40282346638528860e+38
+double	64 bits	4.94065645841246544e-324	1.79769313486231570e+308
+
+Let’s write a program to represent both the floating-point data type and their min and max value.
+
+// Kotlin code
+fun main(args : Array<String>) {
+      // add suffix F for float
+    var myfloat = 54F                
+    println("My float value ${myfloat}")
+ 
+    var F1: Float = Float.MIN_VALUE
+    var F2: Float = Float.MAX_VALUE
+    println("Smallest Float value: " +F1)
+    println("Largest Float value: " + F2)
+ 
+    var D1: Double = Double.MIN_VALUE
+    var D2: Double = Double.MAX_VALUE
+    println("Smallest Double value: " + D1)
+    println("Largest Double value: " + D2)
+}
+
+Output:
+
+My float value 54.0
+Smallest Float value: 1.4E-45
+Largest Float value: 3.4028235E38
+Smallest Double value: 4.9E-324
+Largest Double value: 1.7976931348623157E308
+
+Boolean Data Type
+
+Boolean data type represents only one bit of information either true or false. The Boolean type in Kotlin is the same as in Java. These operations disjunction (||) or 
+conjunction (&&) can be performed on boolean types.
+
+Data Type
+	
+
+Bits
+	
+
+Data Range
+boolean	1 bit	true or false
+
+Let’s write a program to represent the boolean data types.
+
+// Kotlin code
+fun main(args : Array<String>){
+if (true is Boolean){
+        print("Yes,true is a boolean value")
+    }
+}
+
+Output:
+
+Yes, true is a boolean value
+
+Character Data Type
+
+Character data type represents the small letters(a-z), Capital letters(A-Z), digits(0-9) and other symbols.
+
+Data Type
+	
+
+Bits
+	
+
+Min Value
+	
+
+Max Value
+char	16 bits	‘\u0000’ (0)	‘\uFFFF’ (65535)
+
+Let’s write a program to represent character data type.
+
+// Kotlin code
+fun main(args : Array<String>){
+    var alphabet: Char = 'C'
+    println("C is a character : ${alphabet is Char}")
+}
+
+Output:
+
+C is a character : true
